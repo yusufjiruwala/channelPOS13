@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rep_daily" pageWidth="255" pageHeight="842" columnWidth="241" leftMargin="7" rightMargin="7" topMargin="7" bottomMargin="7" uuid="43b37974-1827-4700-8746-535f18132f22">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="192"/>
+	<parameter name="COMPANY_NAME" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LOCATION_NAME" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FROMDATE" class="java.util.Date"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\yaali\\products\\CHANNEL\\ChannelPOS11\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOCATION_CODE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["001"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="COMPANY_SPECS" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="CP_USER" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+min(creatdt) first_order, max(creatdt) last_order,
+nvl(max((SELECT MAX(INVOICE_NO) FROM POSPUR1 WHERE LOCATION_CODE=$P{LOCATION_CODE} AND INVOICE_DATE=$P{FROMDATE} AND INVOICE_CODE=30)),0) first_invoice ,nvl(min((SELECT MIN(INVOICE_NO) FROM POSPUR1 WHERE LOCATION_CODE=$P{LOCATION_CODE} AND INVOICE_DATE=$P{FROMDATE} AND INVOICE_CODE=30)),0) last_invoice,
+nvl(max((SELECT MAX(INVOICE_NO) FROM POSPUR1 WHERE LOCATION_CODE=$P{LOCATION_CODE} AND INVOICE_DATE=$P{FROMDATE} AND INVOICE_CODE=20)),0) first_return ,nvl(min((SELECT MIN(INVOICE_NO) FROM POSPUR1 WHERE LOCATION_CODE=$P{LOCATION_CODE} AND INVOICE_DATE=$P{FROMDATE} AND INVOICE_CODE=20)),0) last_return,
+nvl(count(inv_ref),0) custs,
+nvl(sum(decode(invoice_code,30,inv_amt,20,inv_amt*-1)),0) grand_tot,
+
+nvl(sum(decode(invoice_code,30,add_charge,20,add_charge*-1)),0) service ,
+
+nvl(sum(decode(invoice_code,30,disc_amt,20,disc_amt*-1)),0) discount,
+
+nvl(sum(decode(invoice_code,30,(inv_amt+add_charge)-disc_amt,20,((inv_amt+add_charge)-disc_amt)*-1)),0) net_amt,
+
+nvl(sum(decode(invoice_code,10,(inv_amt+add_charge)-disc_amt)),0) advance_amount,
+
+COUNT(*) CNTS
+
+ from pospur1
+where invoice_date=$P{FROMDATE} AND LOCATION_CODE=$P{LOCATION_CODE}]]>
+	</queryString>
+	<field name="FIRST_ORDER" class="java.sql.Timestamp"/>
+	<field name="LAST_ORDER" class="java.sql.Timestamp"/>
+	<field name="FIRST_INVOICE" class="java.math.BigDecimal"/>
+	<field name="LAST_INVOICE" class="java.math.BigDecimal"/>
+	<field name="FIRST_RETURN" class="java.math.BigDecimal"/>
+	<field name="LAST_RETURN" class="java.math.BigDecimal"/>
+	<field name="CUSTS" class="java.math.BigDecimal"/>
+	<field name="GRAND_TOT" class="java.math.BigDecimal"/>
+	<field name="SERVICE" class="java.math.BigDecimal"/>
+	<field name="DISCOUNT" class="java.math.BigDecimal"/>
+	<field name="NET_AMT" class="java.math.BigDecimal"/>
+	<field name="ADVANCE_AMOUNT" class="java.math.BigDecimal"/>
+	<field name="CNTS" class="java.math.BigDecimal"/>
+	<pageHeader>
+		<band height="118" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1bcf1bf7-7af2-4752-9de6-069741fc6e9d" x="69" y="73" width="131" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{LOCATION_NAME}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="7d35f447-1674-451b-85d0-b9289430cf23" x="40" y="20" width="98" height="53"/>
+				<imageExpression><![CDATA["company_logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="36f73bd7-9b6b-46e8-9431-00429d2152c8" x="12" y="73" width="49" height="14"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Location:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="4fee7434-e34c-49eb-98f6-8d9170a514db" x="0" y="0" width="183" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{COMPANY_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1f7fe767-94f2-4028-b554-5921ecb31f53" x="12" y="87" width="49" height="14"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement uuid="0a383162-8807-4de7-82f1-098dc5dc344a" x="69" y="87" width="131" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FROMDATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="237b0318-18bb-4bbc-af07-7b84220efa1a" x="12" y="101" width="49" height="14"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Operator:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="36119053-fc9c-439e-984d-c2a294c67496" x="69" y="101" width="131" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CP_USER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="280" splitType="Stretch">
+			<textField pattern="###0;-###0">
+				<reportElement uuid="ed4837bd-590d-4bb5-8bcb-770918493e19" x="111" y="42" width="72" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{LAST_INVOICE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0;-###0">
+				<reportElement uuid="a647f43d-fa43-4c2f-9e32-04e23f9815ea" x="111" y="56" width="72" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{FIRST_INVOICE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="57a21af7-c6d3-4c90-ba1f-383b9797d0ea" x="0" y="42" width="69" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[First Invoice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d090d8d6-e258-4a22-86dd-4028833367ad" x="0" y="56" width="69" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Last Invoice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="732fa4e4-7815-4781-88cd-c095cc8f1328" x="0" y="99" width="69" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[No Of Customers]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8e4039c9-2dd5-49d3-8eff-b4204638bf1c" x="0" y="113" width="69" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Grand Total]]></text>
+			</staticText>
+			<textField pattern="###0;-###0">
+				<reportElement uuid="44581890-5950-42a7-9b2f-9daa75b564b2" x="111" y="98" width="72" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{CUSTS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000;-###0.000">
+				<reportElement uuid="9f2c11b8-e1cf-4c7a-ba93-39e251246a99" x="111" y="114" width="72" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{GRAND_TOT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="da41a6b8-03d0-4c8b-9f94-979c8a94c346" x="0" y="128" width="69" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Service]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1ea31849-d894-4cf8-8c9e-5b38ce67bc35" x="0" y="142" width="69" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Discount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cbd5c664-c488-4a1f-a784-94aa9f06058a" x="0" y="156" width="69" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Net Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5ee90315-6f6b-4a59-abf2-4f45d4f983e1" x="0" y="170" width="69" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[No Of Sales #]]></text>
+			</staticText>
+			<textField pattern="###0.000;-###0.000">
+				<reportElement uuid="d9c760cf-8a3f-461c-b995-00c404bda331" x="111" y="130" width="72" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{SERVICE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000;-###0.000">
+				<reportElement uuid="d413dfad-a966-4c63-9efd-16b6e8ed86df" x="111" y="144" width="72" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{DISCOUNT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.000;-###0.000">
+				<reportElement uuid="21d85af5-07f3-4b55-b445-ff265d8b58a5" x="111" y="158" width="72" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{NET_AMT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0;-###0">
+				<reportElement uuid="a0134e1f-beee-48ce-b9ea-b3b750c91f01" x="111" y="170" width="72" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{CNTS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.000;-#,##0.000">
+				<reportElement uuid="5db9576a-f421-4460-aaae-26b15814b88f" x="77" y="203" width="106" height="24"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NET_AMT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0;-###0">
+				<reportElement uuid="69626fa4-40ae-4ba1-83a6-175db22fa0cb" x="111" y="70" width="72" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{LAST_RETURN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="693af0e3-6f53-4c77-8254-5a5a5a9b5a21" x="0" y="84" width="69" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Last Return]]></text>
+			</staticText>
+			<textField pattern="###0;-###0">
+				<reportElement uuid="2874eb0c-b233-4c9c-9e7b-02d4121ec451" x="111" y="84" width="72" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{FIRST_RETURN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="55520f8e-3efa-4a86-85a7-f18b2a36fc33" x="0" y="70" width="69" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[First Return]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d117e10e-cba7-419e-8fad-2a9f5601c7df" x="2" y="209" width="69" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Net sales ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement uuid="76f83181-9aa4-42e7-9bb2-f24424e68a26" x="69" y="14" width="114" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{FIRST_ORDER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement uuid="9e5bb134-bd15-4e7b-a258-5c4da2cc9a80" x="69" y="28" width="114" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{LAST_ORDER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0e6811ee-2512-4557-a586-a8f4028c72d7" x="0" y="14" width="69" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[First Order]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="72d3a082-2563-48d4-8bdc-83a10d4afb2f" x="0" y="28" width="69" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Last Order]]></text>
+			</staticText>
+			<textField pattern="#,##0.000">
+				<reportElement uuid="b466c39c-9bf5-48c1-ac35-9b1fe7039879" x="77" y="245" width="106" height="24"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ADVANCE_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a1395c16-2c86-4e82-94ae-8f1440c46b0b" x="2" y="245" width="69" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Advance]]></text>
+			</staticText>
+		</band>
+		<band height="46">
+			<subreport>
+				<reportElement uuid="055c8da7-6e92-427d-8f62-c63560d340bb" x="0" y="0" width="241" height="46"/>
+				<subreportParameter name="LOCATION_CODE">
+					<subreportParameterExpression><![CDATA[$P{LOCATION_CODE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FROMDATE">
+					<subreportParameterExpression><![CDATA[$P{FROMDATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["reports\\rpt_daily_sum.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="58"/>
+	</summary>
+</jasperReport>

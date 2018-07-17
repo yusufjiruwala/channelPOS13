@@ -1,0 +1,521 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ * frmDiscount.java
+ *
+ * Created on Aug 8, 2014, 1:03:09 PM
+ */
+package com.forms.panels;
+
+import com.forms.MainFrame;
+import com.generic.utils.utils;
+import com.keyboard.keyboardViewer;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+/**
+ *
+ * @author Yusuf
+ */
+public class frmDiscount extends javax.swing.JDialog {
+
+    public double sumGrossAmt = 0;
+    public double sumNetAmt = 0;
+    public double sumDiscountAmt = 0;
+    public double sumDiscountP = 0;
+    public double sumAdvanceAmt = 0;
+    public MainFrame parentJf = null;
+    public DecimalFormat decimalformat = null;
+    public double sumAddAmt = 0;
+    private salesPanel sp = null;
+    public double selectedDisc = 0;
+    public String selectedDiscDescr = "";
+    public ButtonGroup bg = null;
+    private InputVerifier inf = new InputVerifier() {
+
+        @Override
+        public boolean verify(JComponent input) {
+            JTextField txt = (JTextField) input;
+            if (txt.getText().length() == 0) {
+                return true;
+            }
+            boolean ret = false;
+            try {
+
+                if (txt.getName().equals("sumTxtDiscAmt")) {
+                    sumDiscountP = 0;
+                    sumDiscountAmt = ((Number) decimalformat.parse(txt.getText())).doubleValue();
+                    if (sumDiscountAmt > sumGrossAmt) {
+                        sumDiscountAmt = 0;
+                    }
+                    if (sumGrossAmt > 0 && sumDiscountAmt > 0) {
+                        sumDiscountP = (sumDiscountAmt / sumGrossAmt) * 100;
+                    }
+                    sumTxtDiscP.setText(String.valueOf(sumDiscountP));
+                }
+                if (txt.getName().equals("sumTxtDiscP")) {
+
+                    sumDiscountP = ((Number) decimalformat.parse(txt.getText())).doubleValue();
+                    sumDiscountAmt = 0;
+                    if (sumDiscountP > 100) {
+                        sumDiscountP = 100;
+                        txt.setText(String.valueOf(sumDiscountP));
+                    }
+                    if (sumDiscountP <= -1) {
+                        sumDiscountP = 0;
+                        txt.setText(String.valueOf(sumDiscountP));
+                    }
+                    if (sumGrossAmt > 0 && sumDiscountP > 0) {
+                        sumDiscountAmt = (sumGrossAmt / 100) * sumDiscountP;
+                    }
+                    sumTxtDiscount.setText(decimalformat.format(sumDiscountAmt));
+                }
+                ret = true;
+                update_sums();
+            } catch (Exception ex) {
+                Logger.getLogger(frmDiscount.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(parentJf, ex.getMessage());
+                ret = false;
+            }
+
+            return ret;
+        }
+    };
+    private keyboardViewer kv = null;
+
+    public frmDiscount(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        this.parentJf = (MainFrame) parent;
+        initComponents();
+        utils.setupFormTextBoxes(getRootPane().getContentPane());
+        sumTxtDiscP.setInputVerifier(inf);
+        sumTxtDiscount.setInputVerifier(inf);
+
+    }
+
+    public void show(salesPanel sp) {
+        this.sp = sp;
+        sumAdvanceAmt = sp.sumAdvanceAmt;
+        sumDiscountAmt = sp.sumDiscountAmt;
+        sumGrossAmt = sp.sumGrossAmt;
+        sumDiscountP = sp.sumDiscountP;
+        sumNetAmt = sp.sumNetAmt;
+        sumAddAmt = sp.sumAddAmt;
+        
+
+        if (sumGrossAmt <= 0) {
+            JOptionPane.showMessageDialog(parentJf, "You can not make disc with no gross amount !");
+            return;
+        }
+
+        if (kv == null) {
+            kv = new keyboardViewer(pnlKb);
+        }
+        toggleKb();
+        if (decimalformat == null) {
+            decimalformat = new DecimalFormat(parentJf.getMapVars().get("money_number"));
+        }
+        update_sums();
+        show_discounts();
+        setLocationRelativeTo(null);
+        edit_all(false);
+        setVisible(true);
+    }
+
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jScrollPane1 = new javax.swing.JScrollPane();
+        pnlParas1 = new javax.swing.JPanel();
+        pnl_paras = new javax.swing.JPanel();
+        pnlSinglePay = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        sumTxtDiscP = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
+        sumTxtGrossAmt = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        sumTxtDiscount = new javax.swing.JTextField();
+        jLabel31 = new javax.swing.JLabel();
+        sumTxtNetAmt = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        cmdCancel = new javax.swing.JButton();
+        cmdOk = new javax.swing.JButton();
+        sumTxtRemarks = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        pnlKb = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        pnlParas1.setLayout(new java.awt.BorderLayout());
+
+        pnl_paras.setLayout(new java.awt.GridBagLayout());
+        pnlParas1.add(pnl_paras, java.awt.BorderLayout.NORTH);
+
+        jScrollPane1.setViewportView(pnlParas1);
+
+        jPanel1.setLayout(new java.awt.GridLayout(3, 2, 5, 5));
+
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel28.setText("Discount %");
+        jPanel1.add(jLabel28);
+
+        sumTxtDiscP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        sumTxtDiscP.setText("0.000");
+        sumTxtDiscP.setName("sumTxtDiscP"); // NOI18N
+        sumTxtDiscP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sumTxtDiscPActionPerformed(evt);
+            }
+        });
+        sumTxtDiscP.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                sumTxtDiscPFocusLost(evt);
+            }
+        });
+        jPanel1.add(sumTxtDiscP);
+
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel29.setText("Gross Amount");
+        jPanel1.add(jLabel29);
+
+        sumTxtGrossAmt.setBackground(new java.awt.Color(255, 255, 102));
+        sumTxtGrossAmt.setFont(new java.awt.Font("Tahoma", 1, 12));
+        sumTxtGrossAmt.setForeground(new java.awt.Color(0, 51, 204));
+        sumTxtGrossAmt.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        sumTxtGrossAmt.setText("0.0");
+        sumTxtGrossAmt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(-16777216,true)));
+        sumTxtGrossAmt.setFocusTraversalPolicyProvider(true);
+        sumTxtGrossAmt.setOpaque(true);
+        jPanel1.add(sumTxtGrossAmt);
+
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel30.setText("Discount Amount");
+        jPanel1.add(jLabel30);
+
+        sumTxtDiscount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        sumTxtDiscount.setText("0.000");
+        sumTxtDiscount.setName("sumTxtDiscAmt"); // NOI18N
+        sumTxtDiscount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sumTxtDiscountActionPerformed(evt);
+            }
+        });
+        jPanel1.add(sumTxtDiscount);
+
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel31.setText("Net Amount");
+        jPanel1.add(jLabel31);
+
+        sumTxtNetAmt.setBackground(new java.awt.Color(255, 255, 102));
+        sumTxtNetAmt.setFont(new java.awt.Font("Tahoma", 1, 12));
+        sumTxtNetAmt.setForeground(new java.awt.Color(0, 51, 204));
+        sumTxtNetAmt.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        sumTxtNetAmt.setText("0.0");
+        sumTxtNetAmt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(-16777216,true)));
+        sumTxtNetAmt.setFocusTraversalPolicyProvider(true);
+        sumTxtNetAmt.setOpaque(true);
+        jPanel1.add(sumTxtNetAmt);
+
+        jLabel1.setText(" ");
+        jPanel1.add(jLabel1);
+
+        jButton1.setText("Kbrd");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+
+        cmdCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/forms/panels/images/cancel.png"))); // NOI18N
+        cmdCancel.setText("Cancel");
+        cmdCancel.setMargin(new Insets(0, 0, 0, 0));
+        cmdCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCancelActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdCancel);
+
+        cmdOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/forms/panels/images/ok.png"))); // NOI18N
+        cmdOk.setText("OK");
+        cmdOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdOkActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdOk);
+
+        sumTxtRemarks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sumTxtRemarksActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel3.setText("Remarks");
+
+        javax.swing.GroupLayout pnlSinglePayLayout = new javax.swing.GroupLayout(pnlSinglePay);
+        pnlSinglePay.setLayout(pnlSinglePayLayout);
+        pnlSinglePayLayout.setHorizontalGroup(
+            pnlSinglePayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSinglePayLayout.createSequentialGroup()
+                .addGroup(pnlSinglePayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlSinglePayLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sumTxtRemarks, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        pnlSinglePayLayout.setVerticalGroup(
+            pnlSinglePayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSinglePayLayout.createSequentialGroup()
+                .addGroup(pnlSinglePayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sumTxtRemarks, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pnlKbLayout = new javax.swing.GroupLayout(pnlKb);
+        pnlKb.setLayout(pnlKbLayout);
+        pnlKbLayout.setHorizontalGroup(
+            pnlKbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 290, Short.MAX_VALUE)
+        );
+        pnlKbLayout.setVerticalGroup(
+            pnlKbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 276, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(pnlSinglePay, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlKb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlSinglePay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(pnlKb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdOkActionPerformed
+        update_sums();
+        do_ok();
+    }//GEN-LAST:event_cmdOkActionPerformed
+    public void do_ok() {
+        sp.sumTxtDiscAmt.setText(decimalformat.format(sumDiscountAmt));
+        sp.sumTxtDiscAmt.getInputVerifier().verify(sp.sumTxtDiscAmt);
+        if (sumTxtRemarks.isEditable()) {
+            selectedDiscDescr = sumTxtRemarks.getText();
+        }
+        sp.txtReasonCancel.setText(selectedDiscDescr);
+        setVisible(false);
+    }
+    private void cmdCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCancelActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_cmdCancelActionPerformed
+
+    private void sumTxtDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumTxtDiscountActionPerformed
+        ((JTextField) evt.getSource()).getInputVerifier().verify(((JTextField) evt.getSource()));
+        onfocusLostSums((JTextField) evt.getSource());
+    }//GEN-LAST:event_sumTxtDiscountActionPerformed
+
+    private void sumTxtDiscPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumTxtDiscPActionPerformed
+        ((JTextField) evt.getSource()).getInputVerifier().verify(((JTextField) evt.getSource()));
+        onfocusLostSums((JTextField) evt.getSource());
+    }//GEN-LAST:event_sumTxtDiscPActionPerformed
+
+    private void sumTxtDiscPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sumTxtDiscPFocusLost
+        onfocusLostSums((JTextField) evt.getComponent());
+    }//GEN-LAST:event_sumTxtDiscPFocusLost
+
+    private void sumTxtRemarksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumTxtRemarksActionPerformed
+    }//GEN-LAST:event_sumTxtRemarksActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        toggleKb();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    private void toggleKb() {
+        if (pnlKb.isVisible()) {
+            setSize(getWidth() - 290, getHeight());
+            pnlKb.setVisible(false);
+            setLocationRelativeTo(null);
+        } else {
+            setSize(getWidth() + 290, getHeight());
+            pnlKb.setVisible(true);
+            pnlKb.setSize(290, getHeight());
+            kv.setParentPanel(pnlKb);
+            kv.setShowPanels(keyboardViewer.MODE_NUMBERS+" "+keyboardViewer.MODE_ALPHABET+" "+keyboardViewer.MODE_SMALL_ALPHABETS);
+            kv.getParentPanel().updateUI();
+            ;
+            pnlKb.updateUI();
+            setLocationRelativeTo(null);
+        }
+    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmdCancel;
+    private javax.swing.JButton cmdOk;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel pnlKb;
+    private javax.swing.JPanel pnlParas1;
+    private javax.swing.JPanel pnlSinglePay;
+    private javax.swing.JPanel pnl_paras;
+    private javax.swing.JTextField sumTxtDiscP;
+    private javax.swing.JTextField sumTxtDiscount;
+    private javax.swing.JLabel sumTxtGrossAmt;
+    private javax.swing.JLabel sumTxtNetAmt;
+    private javax.swing.JTextField sumTxtRemarks;
+    // End of variables declaration//GEN-END:variables
+
+    private void update_sums() {
+        try {
+            sumNetAmt = (sumGrossAmt + sumAddAmt) - sumDiscountAmt;
+            sumTxtGrossAmt.setText(decimalformat.format(sumGrossAmt));
+            sumTxtNetAmt.setText(decimalformat.format(sumNetAmt));
+        } catch (Exception ex) {
+            Logger.getLogger(frmDiscount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void onfocusLostSums(JTextField txt) {
+
+        if (txt.getText().length() > 0) {
+            try {
+                if (txt.getName().equals("sumTxtDiscAmt")) {
+                    sumDiscountAmt = ((Number) decimalformat.parse(txt.getText())).doubleValue();
+                    txt.setText(decimalformat.format(sumDiscountAmt));
+                }
+
+
+            } catch (ParseException ex) {
+                Logger.getLogger(salesPanel.class.getName()).log(Level.SEVERE, null, ex);
+                txt.setText("");
+                JOptionPane.showMessageDialog(parentJf, ex.getMessage());
+            }
+        }
+    }
+    private Map<String, Double> mapDisc1 = new HashMap<String, Double>();
+    private Map<String, Double> mapDisc2 = new HashMap<String, Double>();
+
+    private void show_discounts() {
+
+
+        pnl_paras.removeAll();
+        Connection con = parentJf.getDbConneciton();
+        try {
+            PreparedStatement ps = con.prepareStatement("select "
+                    + " * from  pos_discounts where form_name='POS_SALE' AND FLAG=1 "
+                    + " ORDER BY KEYFLD", ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = ps.executeQuery();
+            if (rs == null || !rs.first()) {
+                return;
+            }
+            rs.beforeFirst();
+            GridBagConstraints gc = new GridBagConstraints();
+            int i = 0;
+            int i1 = 0;
+            selectedDiscDescr = "";
+            bg = new ButtonGroup();
+            mapDisc1.clear();
+            mapDisc2.clear();
+            while (rs.next()) {
+                JRadioButton jr = new JRadioButton(rs.getString("DISCOUNT_DESCR"));
+                jr.setActionCommand(rs.getString("DISCOUNT_DESCR"));
+                jr.setFont(new Font("Dialog", Font.BOLD, 14));
+                bg.add(jr);
+                gc.gridx = i1;
+                gc.gridy = i;
+                gc.insets = new Insets(10, 10, 10, 10);
+                gc.gridwidth = 1;
+                gc.weightx = 0.0;
+                gc.fill = GridBagConstraints.HORIZONTAL;
+                pnl_paras.add(jr, gc);
+                i = i + i1;
+                i1 = (i1 == 0 ? 1 : 0);
+
+                mapDisc1.put(rs.getString("DISCOUNT_DESCR"), rs.getDouble("keyfld"));
+                mapDisc2.put(rs.getString("DISCOUNT_DESCR"), rs.getDouble("disc_p"));
+
+                jr.addActionListener(new ActionListener() {
+
+                    public void actionPerformed(ActionEvent e) {
+                        selectedDiscDescr = e.getActionCommand();
+                        selectedDisc = mapDisc1.get(selectedDiscDescr);
+                        sumTxtDiscP.setText(decimalformat.format(mapDisc2.get(selectedDiscDescr)));
+                        sumTxtRemarks.setText(selectedDiscDescr);
+                        sumTxtDiscP.getInputVerifier().verify(sumTxtDiscP);
+                        if (sumDiscountAmt <= 0) {
+                            edit_all(true);
+                        }
+                    }
+                });
+            }
+            ps.close();
+            pnl_paras.updateUI();
+        } catch (SQLException ex) {
+            Logger.getLogger(closeReturnDlg.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }
+
+    private void edit_all(boolean b) {
+        sumTxtDiscP.setEditable(b);
+        sumTxtDiscount.setEditable(b);
+        sumTxtRemarks.setEditable(b);
+    }
+}

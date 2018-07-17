@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_store_balance" language="groovy" pageWidth="255" pageHeight="842" columnWidth="235" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" isIgnorePagination="true">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="REPORT_DATETIME" class="java.sql.Timestamp"/>
+	<parameter name="USERNAME" class="java.lang.String"/>
+	<parameter name="COMPANY_NAME" class="java.lang.String"/>
+	<parameter name="FILTERTEXT" class="java.lang.String"/>
+	<parameter name="LOCATION" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select i2.descr Group_Item, s.refer,i.descr,(s.qty+(s.pos_in-s.pos_out)/i.pack) balance
+from stori s,items i,items i2 where i.reference=s.refer and i2.reference=i.parentitem
+AND (upper(i2.descr) like '%'||upper($P{FILTERTEXT})||'%'
+  or upper(s.refer) like '%'||upper($P{FILTERTEXT})||'%'
+  OR upper(i.descr) like '%'||upper($P{FILTERTEXT}||'%'))
+order by i.descr2]]>
+	</queryString>
+	<field name="GROUP_ITEM" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="REFER" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BALANCE" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="Item Group">
+		<groupExpression><![CDATA[$F{GROUP_ITEM}]]></groupExpression>
+		<groupHeader>
+			<band height="18">
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="235" height="13"/>
+					<textElement>
+						<font size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{GROUP_ITEM}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="77" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="235" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{COMPANY_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="62" y="20" width="100" height="14"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Store Balance Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="137" y="65" width="25" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Filter]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="162" y="64" width="73" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{FILTERTEXT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="0" y="64" width="100" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$P{REPORT_DATETIME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="51" y="34" width="49" height="14"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Location:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="108" y="34" width="127" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{LOCATION}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="128" y="53" width="100" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["User :" + $P{USERNAME}.toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="51" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Item Code]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="235" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="15" width="235" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="177" y="3" width="51" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tot Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="3" width="126" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Item Name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="177" y="0" width="51" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{BALANCE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="51" y="0" width="111" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESCR}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="51" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{REFER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="11" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

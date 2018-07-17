@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DynamicReport" pageWidth="255" pageHeight="595" columnWidth="245" leftMargin="5" rightMargin="5" topMargin="0" bottomMargin="0" scriptletClass="ar.com.fdvs.dj.core.DJDefaultScriptlet" whenResourceMissingType="Key" isIgnorePagination="true">
+	<style name="dj_style_1_" mode="Transparent" forecolor="#000000" backcolor="#C0C0C0" fill="Solid" radius="0" scaleImage="Clip" hAlign="Center" vAlign="Bottom" rotation="None" isBlankWhenNull="true" fontName="DejaVu Sans" fontSize="8" isBold="false" isItalic="false" isUnderline="true" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<pen lineWidth="0.0" lineStyle="Solid"/>
+		<box padding="2">
+			<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="dj_style_2_" mode="Transparent" forecolor="#000000" backcolor="#C0C0C0" fill="Solid" radius="0" scaleImage="Clip" hAlign="Left" vAlign="Bottom" rotation="None" isBlankWhenNull="true" fontName="DejaVu Sans" fontSize="8" isBold="false" isItalic="false" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<pen lineWidth="0.0" lineStyle="Solid"/>
+		<box padding="2">
+			<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="dj_style_3_" mode="Transparent" forecolor="#004040" backcolor="#FFFFFF" fill="Solid" radius="0" scaleImage="Clip" hAlign="Left" vAlign="Bottom" rotation="None" isBlankWhenNull="true" fontName="DejaVu Sans" fontSize="8" isBold="false" isItalic="false" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<pen lineWidth="0.0" lineStyle="Solid"/>
+		<box padding="2">
+			<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="dj_style_4_" mode="Transparent" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" radius="0" scaleImage="Clip" hAlign="Right" vAlign="Bottom" rotation="None" isBlankWhenNull="true" fontName="DejaVu Sans" fontSize="8" isBold="false" isItalic="false" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<pen lineWidth="0.0" lineStyle="Solid"/>
+		<box padding="2">
+			<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="dj_style_5_" mode="Transparent" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" radius="0" scaleImage="Clip" hAlign="Left" vAlign="Bottom" rotation="None" isBlankWhenNull="true" fontName="DejaVu Sans" fontSize="8" isBold="false" isItalic="false" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<pen lineWidth="0.0" lineStyle="Solid"/>
+		<box padding="2">
+			<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="DejaVu Sans_for_column_COLUMN_0_" mode="Transparent" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" radius="0" scaleImage="Clip" hAlign="Left" vAlign="Bottom" rotation="None" isBlankWhenNull="true" fontName="DejaVu Sans" fontSize="8" isBold="false" isItalic="false" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<pen lineWidth="0.0" lineStyle="Solid"/>
+		<box padding="2">
+			<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new java.lang.Boolean(((Number)$V{REPORT_COUNT}).doubleValue() % 2 == 0)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#E6E6E6"/>
+		</conditionalStyle>
+	</style>
+	<style name="DejaVu Sans_for_column_COLUMN_1_" mode="Transparent" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" radius="0" scaleImage="Clip" hAlign="Left" vAlign="Bottom" rotation="None" isBlankWhenNull="true" fontName="DejaVu Sans" fontSize="8" isBold="false" isItalic="false" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<pen lineWidth="0.0" lineStyle="Solid"/>
+		<box padding="2">
+			<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new java.lang.Boolean(((Number)$V{REPORT_COUNT}).doubleValue() % 2 == 0)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#E6E6E6"/>
+		</conditionalStyle>
+	</style>
+	<style name="DejaVu Sans_for_column_COLUMN_2_" mode="Transparent" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" radius="0" scaleImage="Clip" hAlign="Right" vAlign="Bottom" rotation="None" isBlankWhenNull="true" fontName="DejaVu Sans" fontSize="8" isBold="false" isItalic="false" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<pen lineWidth="0.0" lineStyle="Solid"/>
+		<box padding="2">
+			<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new java.lang.Boolean(((Number)$V{REPORT_COUNT}).doubleValue() % 2 == 0)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#E6E6E6"/>
+		</conditionalStyle>
+	</style>
+	<style name="DejaVu Sans_for_column_COLUMN_3_" mode="Transparent" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" radius="0" scaleImage="Clip" hAlign="Left" vAlign="Bottom" rotation="None" isBlankWhenNull="true" fontName="DejaVu Sans" fontSize="8" isBold="false" isItalic="false" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<pen lineWidth="0.0" lineStyle="Solid"/>
+		<box padding="2">
+			<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new java.lang.Boolean(((Number)$V{REPORT_COUNT}).doubleValue() % 2 == 0)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#E6E6E6"/>
+		</conditionalStyle>
+	</style>
+	<field name="ITEM_CODE" class="java.lang.String"/>
+	<field name="DESCR" class="java.lang.String"/>
+	<field name="NET_SALE" class="java.math.BigDecimal"/>
+	<field name="QUANTITY" class="java.math.BigDecimal"/>
+	<variable name="variable-footer_global_NET_SALE" class="java.math.BigDecimal" resetType="Group" resetGroup="global_column_0" calculation="Sum">
+		<variableExpression><![CDATA[$F{NET_SALE}]]></variableExpression>
+		<initialValueExpression><![CDATA[new java.math.BigDecimal("0")]]></initialValueExpression>
+	</variable>
+	<variable name="variable-footer_global_QUANTITY" class="java.math.BigDecimal" resetType="Group" resetGroup="global_column_0" calculation="Sum">
+		<variableExpression><![CDATA[$F{QUANTITY}]]></variableExpression>
+		<initialValueExpression><![CDATA[new java.math.BigDecimal("0")]]></initialValueExpression>
+	</variable>
+	<group name="global_column_0">
+		<groupExpression><![CDATA["Grand Total"]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="22" splitType="Stretch">
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="global_column_0" pattern="#,##0.000;(#,##0.000)">
+					<reportElement key="variable_for_column_2_in_group_0" style="dj_style_4_" positionType="Float" stretchType="RelativeToTallestObject" x="190" y="0" width="26" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{variable-footer_global_NET_SALE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="global_column_0">
+					<reportElement key="variable_for_column_3_in_group_0" style="dj_style_4_" positionType="Float" stretchType="RelativeToTallestObject" x="216" y="0" width="29" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{variable-footer_global_QUANTITY}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement key="global_legend_footer" style="dj_style_5_" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="190" height="22"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA["Grand Total"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="60">
+			<textField isStretchWithOverflow="true">
+				<reportElement style="dj_style_2_" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="255" height="15"/>
+				<textElement textAlignment="Left" markup="styled"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["FROM DATE : 01/08/2011"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="dj_style_2_" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="15" width="255" height="15"/>
+				<textElement textAlignment="Left" markup="styled"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["TO DATE : 16/08/2011"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="dj_style_2_" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="30" width="255" height="15"/>
+				<textElement textAlignment="Left" markup="styled"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["GROUP ITEM : ALL"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="dj_style_2_" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="45" width="255" height="15"/>
+				<textElement textAlignment="Left" markup="styled"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["LOCATION : 001"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="dj_style_3_" positionType="Float" stretchType="RelativeToTallestObject" x="-10" y="0" width="255" height="15"/>
+				<textElement textAlignment="Right" markup="styled"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Return Items"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="header_ITEM_CODE" style="dj_style_1_" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="53" height="30" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA["ITEM_CODE"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="header_DESCR" style="dj_style_1_" positionType="Float" stretchType="RelativeToTallestObject" x="53" y="0" width="137" height="30" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA["DESCR"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="header_NET_SALE" style="dj_style_1_" positionType="Float" stretchType="RelativeToTallestObject" x="190" y="0" width="26" height="30" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA["NET_SALE"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="header_QUANTITY" style="dj_style_1_" positionType="Float" stretchType="RelativeToTallestObject" x="216" y="0" width="29" height="30" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA["QUANTITY"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Prevent">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="DejaVu Sans_for_column_COLUMN_0_" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="53" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ITEM_CODE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="DejaVu Sans_for_column_COLUMN_1_" positionType="Float" stretchType="RelativeToTallestObject" x="53" y="0" width="137" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESCR}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.000;(#,##0.000)" isBlankWhenNull="true">
+				<reportElement style="DejaVu Sans_for_column_COLUMN_2_" positionType="Float" stretchType="RelativeToTallestObject" x="190" y="0" width="26" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{NET_SALE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="DejaVu Sans_for_column_COLUMN_3_" positionType="Float" stretchType="RelativeToTallestObject" x="216" y="0" width="29" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{QUANTITY}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
