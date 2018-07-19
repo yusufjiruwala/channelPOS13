@@ -59,7 +59,7 @@ public class lovDialog extends javax.swing.JDialog implements lovFrame {
         };
         getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(escapeKeyStroke, "ESCAPE");
         getRootPane().getActionMap().put("ESCAPE", escapeAction);
-
+        
     }
 
     /** This method is called from within the constructor to
@@ -195,7 +195,7 @@ public class lovDialog extends javax.swing.JDialog implements lovFrame {
         setLocationRelativeTo(null);
     }
 
-    public void setSelectedNo(int no) {
+    public void setSelectedNo(int no,String rfr) {
         this.selectedno = no;
         setVisible(false);
     }

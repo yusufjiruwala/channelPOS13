@@ -213,6 +213,13 @@ public class utils {
         return f;
     }
 
+        public static Object noValue(Object f, Object a) {
+        if (f == null || f.toString().equals("")) {
+            return a;
+        }
+        return f;
+    }
+
     public static List<Row> convertRows(PreparedStatement ps, String filterstring, int nextfetch) throws SQLException {
         List<Row> lsr = new ArrayList<Row>();
         ResultSet rs = null;

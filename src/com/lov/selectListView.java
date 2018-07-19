@@ -11,7 +11,7 @@ import com.generic.model.qryColumn;
 import com.generic.utils.XTableColumnModel;
 import com.generic.utils.utils;
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -25,8 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import org.jdesktop.swingbinding.impl.ListBindingManager;
-import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
  *
@@ -66,7 +64,10 @@ public class selectListView {
                 listtb.requestFocus();
             }
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                parentJF.setSelectedNo(listtb.getSelectedRow());
+                if (listtb.getRowCount()==1)
+                    listtb.setRowSelectionInterval(0, 0);
+                parentJF.setSelectedNo(listtb.getSelectedRow(),txtFilter.getText());
+                txtFilter.selectAll();
             }
         }
 
@@ -93,10 +94,10 @@ public class selectListView {
 
         public void mouseClicked(MouseEvent e) {
             if (selectionStyle == SINGLE_CLICK_SELECTION && e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
-                parentJF.setSelectedNo(listtb.getSelectedRow());
+                parentJF.setSelectedNo(listtb.getSelectedRow(),"");
             }
             if (selectionStyle == DOUBLE_CLICK_SELECTION && e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
-                parentJF.setSelectedNo(listtb.getSelectedRow());
+                parentJF.setSelectedNo(listtb.getSelectedRow(),"");
             }
         }
 
@@ -119,7 +120,7 @@ public class selectListView {
 
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                parentJF.setSelectedNo(listtb.getSelectedRow());
+                parentJF.setSelectedNo(listtb.getSelectedRow(),"");
             }
 
         }
@@ -201,6 +202,7 @@ public class selectListView {
         headerPanel.setBackground(Color.YELLOW);
         //txtFilter.setPreferredSize(new Dimension(headerPanel.getWidth(), headerPanel.getHeight()));
         txtFilter.setBackground(headerPanel.getBackground());
+        txtFilter.setFont(new Font("Arial", Font.BOLD, 24));
         headerPanel.add(txtFilter);
         listtb.setColumnModel(new XTableColumnModel());
         listtb.setModel(tbModel);
@@ -236,7 +238,7 @@ public class selectListView {
 
                 public void actionPerformed(ActionEvent e) {
                     if (parentJF != null) {
-                        parentJF.setSelectedNo(listtb.getSelectedRow());
+                        parentJF.setSelectedNo(listtb.getSelectedRow(),"");
                     }
                 }
             });
@@ -246,7 +248,7 @@ public class selectListView {
 
                 public void actionPerformed(ActionEvent e) {
                     if (parentJF != null) {
-                        parentJF.setSelectedNo(-1);
+                        parentJF.setSelectedNo(-1,"");
 
                     }
                 }

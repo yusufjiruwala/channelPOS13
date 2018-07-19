@@ -10,7 +10,6 @@
  */
 package com.forms;
 
-import com.forms.MainFrame;
 import com.generic.model.DBClass;
 import com.generic.utils.utils;
 import com.lov.lovFrame;
@@ -19,10 +18,8 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 
 /**
  *
@@ -36,7 +33,6 @@ public class frmLovSearchPanel extends javax.swing.JPanel {
     private String sqlstr = "";
     private int selectedno = -1;
     private boolean can_select_multiple = false;
-    private int NoOfClicksOnSelection = 0;
     private MainFrame parentJf = null;
     public lovFrame lovSelection = null;
     private boolean auto_size_cols = false;

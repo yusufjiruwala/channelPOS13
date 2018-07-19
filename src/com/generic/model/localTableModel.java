@@ -73,7 +73,8 @@ public class localTableModel implements TableModel {
                 r = masterRows.get(i);
                 fnd = false;
                 for (int j = 0; j < r.lst.size(); j++) {
-                    if (dynamicFilter == null || dynamicFilter.length() == 0 || r.lst.get(j).getDisplay().toUpperCase().contains(dynamicFilter.toUpperCase())) {
+                    if (dynamicFilter == null || dynamicFilter.length() == 0 ||
+                            r.lst.get(j).getDisplay().toUpperCase().contains(dynamicFilter.toUpperCase())) {
                         fnd = true;
                         break;
                     }

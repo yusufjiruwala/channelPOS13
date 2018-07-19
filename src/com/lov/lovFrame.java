@@ -12,6 +12,6 @@ import com.generic.model.DBClass;
  */
 public interface lovFrame {
 
-    public void setSelectedNo(int no);
+    public void setSelectedNo(int no,String rfr);
     public DBClass getDbc();
 }
