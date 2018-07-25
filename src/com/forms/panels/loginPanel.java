@@ -61,12 +61,12 @@ public class loginPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtLocation = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        jPanel1.setLayout(new java.awt.GridLayout(2, 1, 0, 1));
+        jPanel1.setLayout(new java.awt.GridLayout(1, 2, 0, 2));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -126,7 +126,7 @@ public class loginPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtPwd, txtUsername});
@@ -135,8 +135,10 @@ public class loginPanel extends javax.swing.JPanel {
 
         jPanel3.setLayout(new java.awt.GridLayout(2, 1));
 
+        jPanel4.setLayout(new java.awt.GridLayout(2, 1));
+
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel3.add(jLabel1);
+        jPanel4.add(jLabel1);
         ImageIcon icon=new ImageIcon("company_logo.GIF");
         BufferedImage bi = new BufferedImage(150,
             150, BufferedImage.TYPE_INT_ARGB);
@@ -147,17 +149,15 @@ public class loginPanel extends javax.swing.JPanel {
         ImageIcon newicon = new ImageIcon(bi);
         jLabel1.setIcon(newicon);
 
-        jPanel4.setLayout(new java.awt.GridLayout(2, 1));
+        jPanel3.add(jPanel4);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("company name");
-        jPanel4.add(jLabel2);
+        jLabel2.setText("  ");
+        jPanel3.add(jLabel2);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Specification");
-        jPanel4.add(jLabel3);
-
-        jPanel3.add(jPanel4);
+        jLabel3.setText(" ");
+        jPanel3.add(jLabel3);
 
         jPanel1.add(jPanel3);
 
@@ -165,7 +165,7 @@ public class loginPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 668, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

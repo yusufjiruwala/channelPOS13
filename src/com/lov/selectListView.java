@@ -31,7 +31,7 @@ import javax.swing.JTextField;
  * @author yusuf
  */
 public class selectListView {
-
+    
     public static final int NO_CLICK_SELECTION = 0;
     public static final int DOUBLE_CLICK_SELECTION = 2;
     public static final int SINGLE_CLICK_SELECTION = 1;
@@ -83,7 +83,13 @@ public class selectListView {
                 Logger.getLogger(selectListView.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 }*/
-                tbModel.setDynamicFilter(txtFilter.getText());
+                if (!utils.parentJf.getSp().chkOnlyBarcode.isSelected()) {
+                    tbModel.setDynamicFilter(txtFilter.getText());
+                } else
+                {
+                    tbModel.setFilterbyCol("BARCODE",txtFilter.getText());
+                }
+                
                 listtb.updateUI();
             } catch (Exception ex) {
                 Logger.getLogger(selectListView.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,7 +103,7 @@ public class selectListView {
                 parentJF.setSelectedNo(listtb.getSelectedRow(),"");
             }
             if (selectionStyle == DOUBLE_CLICK_SELECTION && e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
-                parentJF.setSelectedNo(listtb.getSelectedRow(),"");
+                parentJF.setSelectedNo(listtb.getSelectedRow(),"");                
             }
         }
 
@@ -121,6 +127,7 @@ public class selectListView {
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 parentJF.setSelectedNo(listtb.getSelectedRow(),"");
+                txtFilter.requestFocus();
             }
 
         }
@@ -257,7 +264,7 @@ public class selectListView {
         }
         utils.arrangePanelComponentsVertically(parentPanel, true, 10, 80, 10);
     }
-
+    
     private void setColsProperties() {
         localTableModel itemd = (localTableModel) listtb.getModel();
         XTableColumnModel colmod = ((XTableColumnModel) listtb.getColumnModel());

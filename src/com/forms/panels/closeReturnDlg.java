@@ -329,9 +329,9 @@ public class closeReturnDlg extends javax.swing.JDialog {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            if (varSelText.isEmpty()) {
-                throw new Exception("No reason of cancellation selected !");
-            }
+//            if (varSelText.isEmpty()) {
+//                throw new Exception("No reason of cancellation selected !");
+//            }
             parentJf.getSpr().sumPaidAmt = sumPaidAmt;
             parentJf.getSpr().sumPaidAmt = sumPaidAmt;
             parentJf.getSpr().txtReasonCancel.setText(varSelText);

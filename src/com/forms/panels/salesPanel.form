@@ -373,7 +373,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="splitGroupItem" pref="206" max="32767" attributes="0"/>
+                              <Component id="splitGroupItem" pref="204" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -387,10 +387,17 @@
                               <Group type="102" attributes="0">
                                   <Component id="jButton8" min="-2" pref="34" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lbl_itemSel" pref="142" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lbl_itemSel" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="chkShowSearchPanel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="chkOnlyBarcode" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -401,6 +408,13 @@
                                   <Component id="lbl_itemSel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jButton8" linkSize="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="chkOnlyBarcode" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -440,6 +454,18 @@
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkShowSearchPanelActionPerformed"/>
                           </Events>
+                        </Component>
+                        <Component class="javax.swing.JCheckBox" name="chkOnlyBarcode">
+                          <Properties>
+                            <Property name="focusable" type="boolean" value="false"/>
+                            <Property name="label" type="java.lang.String" value="Only Barcode"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkOnlyBarcodeActionPerformed"/>
+                          </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>

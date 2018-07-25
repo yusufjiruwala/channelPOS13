@@ -13,9 +13,11 @@ package com.forms.panels;
 import com.forms.MainFrame;
 import com.generic.model.DBClass;
 import com.generic.model.localTableModel;
+import com.generic.utils.QueryExe;
 import com.generic.utils.XTableColumnModel;
 import com.generic.utils.utils;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -271,7 +273,7 @@ public class closeSalesPanel extends javax.swing.JPanel {
             ps2.setString(2, parentJf.getLp().getLogon_user());
             ps2.setTimestamp(3, tm);
             ps2.executeUpdate();
-            JOptionPane.showMessageDialog(parentJf, "...Closed Successfully,Credits To Yusuf Jiruwala (:-) ");
+            JOptionPane.showMessageDialog(parentJf, "...Closed Successfully, Thanks using our CHAINEL business applications..:-) ");
             parentJf.getMapVars().put("POS_CLOSE_DATE_" + parentJf.getMapVars().get("DEFAULT_LOCATION"), txtUntilDate.getText());
             ps2.close();
             dbc.getDbConnection().commit();
@@ -316,7 +318,26 @@ public class closeSalesPanel extends javax.swing.JPanel {
         if (parentJf.getMapVars().get("POS_CLOSE_DATE_" + parentJf.getMapVars().get("DEFAULT_LOCATION")) != null) {
             txtcloseDate.setText(parentJf.getMapVars().get("POS_CLOSE_DATE_" + parentJf.getMapVars().get("DEFAULT_LOCATION")));
         }
-        txtUntilDate.setText(dfc.format(new Date(System.currentTimeMillis())));
+        cmdCloseSale.setEnabled(true);
+        try {
+            ResultSet rs=utils.getSqlRS("select max(invoice_date) from pospur1 ", parentJf.getDbConneciton());
+            rs.first();            
+            if (rs.getDate(1)!=null)  {
+            txtUntilDate.setText(dfc.format(rs.getDate(1)));
+            cmdCloseSale.setEnabled(true);
+            }
+            else {
+                JOptionPane.showMessageDialog(parentJf, "No data to close !");
+                cmdCloseSale.setEnabled(false);
+            }
+            rs.close();
+        }
+        catch(Exception ex) {
+            ex.printStackTrace();
+            txtUntilDate.setText(dfc.format(new Date(System.currentTimeMillis())));
+        }
+
+
         cmdRefresh.doClick();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

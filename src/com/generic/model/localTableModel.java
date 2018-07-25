@@ -89,6 +89,33 @@ public class localTableModel implements TableModel {
         }
     }
 
+    public void setFilterbyCol(String colname,String dynamicFilter) throws Exception {
+        this.dynamicFilter = dynamicFilter;
+        int colno=getColByName(colname).getColpos();
+        filtering = true;
+        try {
+            rows.clear();
+            boolean fnd = false;
+            Row r = null;
+            for (int i = 0; i < masterRows.size(); i++) {
+                r = masterRows.get(i);
+                fnd = false;
+
+                    if (dynamicFilter == null || dynamicFilter.trim().length() == 0 ||
+                            r.lst.get(colno).getDisplay().toUpperCase().equals(dynamicFilter.toUpperCase())) {
+                        fnd = true;                        
+                    }
+                if (fnd) {
+                    rows.add(r);
+                }
+            }
+        } catch (Exception ex) {
+            filtering = false;
+            throw ex;
+        }
+    }
+
+    
     public List<Row> getMasterRows() {
         return masterRows;
     }

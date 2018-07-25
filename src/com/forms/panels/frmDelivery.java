@@ -1438,7 +1438,7 @@ public class frmDelivery extends javax.swing.JDialog {
             ps_up = dbConnection.prepareStatement("BEGIN "
                     + "delete from pospur1 where invoice_code=10 and KEYFLD=" + dataKeyfld + ";"
                     + "delete from pospayments where vou_keyfld=" + dataKeyfld + ";"
-                    + "update pos_onnpur1 set advance_date=invoice_date,advance_paid=0 where keyfld="+keyfld+"' end; ");
+                    + "update pos_onpur1 set advance_date=SYSDATE,advance_paid=0 where keyfld='"+keyfld+"' ; end; ");
             ps_up.executeUpdate();
             ps_up.close();
 

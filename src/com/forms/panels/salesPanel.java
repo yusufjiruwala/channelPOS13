@@ -316,6 +316,7 @@ public class salesPanel extends javax.swing.JPanel implements RTableTriggers {
         jButton8 = new javax.swing.JButton();
         lbl_itemSel = new BlinkLabel();
         chkShowSearchPanel = new javax.swing.JCheckBox();
+        chkOnlyBarcode = new javax.swing.JCheckBox();
         splitGroupItem = new javax.swing.JSplitPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         groupTable = new javax.swing.JTable();
@@ -637,6 +638,14 @@ public class salesPanel extends javax.swing.JPanel implements RTableTriggers {
             }
         });
 
+        chkOnlyBarcode.setFocusable(false);
+        chkOnlyBarcode.setLabel("Only Barcode");
+        chkOnlyBarcode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkOnlyBarcodeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -644,10 +653,15 @@ public class salesPanel extends javax.swing.JPanel implements RTableTriggers {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbl_itemSel, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl_itemSel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(chkShowSearchPanel)
                 .addContainerGap())
+            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel9Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(chkOnlyBarcode)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -655,6 +669,11 @@ public class salesPanel extends javax.swing.JPanel implements RTableTriggers {
                 .addComponent(chkShowSearchPanel)
                 .addComponent(lbl_itemSel))
             .addComponent(jButton8)
+            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel9Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(chkOnlyBarcode)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jPanel9Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {chkShowSearchPanel, jButton8});
@@ -718,7 +737,7 @@ public class salesPanel extends javax.swing.JPanel implements RTableTriggers {
             .addGroup(pnlItemsLayout.createSequentialGroup()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(splitGroupItem, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
+                .addComponent(splitGroupItem, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Items ", pnlItems);
@@ -2036,6 +2055,9 @@ public class salesPanel extends javax.swing.JPanel implements RTableTriggers {
                 @Override
                 public void run() {
                     chkShowSearchPanel.setSelected(true);
+                            if (utils.noValue(parentJF.getMapVars().get("default_only_barcode"), "false").toString().equals("true")) {
+                             chkOnlyBarcode.setSelected(true);
+                            }
                     toggle_search_panel();
 
                 }
@@ -2513,6 +2535,10 @@ public class salesPanel extends javax.swing.JPanel implements RTableTriggers {
     private void cmdItemAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdItemAdd2ActionPerformed
         addUpdatePrice();
 }//GEN-LAST:event_cmdItemAdd2ActionPerformed
+
+    private void chkOnlyBarcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOnlyBarcodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkOnlyBarcodeActionPerformed
     public void toggle_search_panel() {
         Rectangle r = new Rectangle(splitGroupItem.getBounds());
         if (chkShowSearchPanel.isSelected()) {
@@ -4114,6 +4140,7 @@ public class salesPanel extends javax.swing.JPanel implements RTableTriggers {
     public javax.swing.JTextField adrWorkAddress;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel canvas;
+    public javax.swing.JCheckBox chkOnlyBarcode;
     public javax.swing.JCheckBox chkPickup;
     public javax.swing.JCheckBox chkRCopyClient;
     private javax.swing.JCheckBox chkShowSearchPanel;
